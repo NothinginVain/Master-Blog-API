@@ -1,0 +1,197 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Masterblog API",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:5002/"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Post",
+      "description": "Post API - CRUD"
+    }
+  ],
+  "paths": {
+    "/api/posts": {
+      "get": {
+        "summary": "Returns all posts",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Post"
+        ],
+        "parameters": [
+          {
+            "name": "sort",
+            "in": "query",
+            "type": "string",
+            "required": false
+          },
+          {
+            "name": "direction",
+            "in": "query",
+            "type": "string",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          },
+          "400": {
+            "description": "Invalid sort fields or directions"
+          }
+        }
+      },
+      "post": {
+        "description": "Grants access to an user",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Post"
+        ],
+        "parameters": [
+          {
+            "name": "access data",
+            "in": "body",
+            "description": "JSON data for the api",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AccessData"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "User granted access"
+          },
+          "400": {
+            "description": "Invalid request data"
+          }
+        }
+      }
+    },
+    "/api/posts/{id}": {
+      "delete": {
+        "summary": "Delete post by id",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Post"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Post deleted successfully"
+          },
+          "404": {
+            "description": "Post not found"
+          }
+        }
+      },
+      "put": {
+        "summary": "Update post by id",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Post"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "access data",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AccessData"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Post updated successfully"
+          },
+          "404": {
+            "description": "Post not found"
+          }
+        }
+      }
+    },
+    "/api/posts/search": {
+      "get": {
+        "summary": "Search posts",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Post"
+        ],
+        "parameters": [
+          {
+            "name": "title",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "content",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Search results"
+          },
+          "404": {
+            "description": "Parameters missing"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "AccessData": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "content": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
+
+
+
+
